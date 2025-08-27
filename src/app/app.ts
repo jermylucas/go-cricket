@@ -67,7 +67,7 @@ export class App {
 
   ngOnInit() {
     this.playerName =
-      prompt('What is your name?', 'Person Hiring Jeremy') || 'Person Hiring Jeremy';
+      prompt('What is your name?', 'Person about to hire Jeremy') || 'Person about to hire Jeremy';
 
     this.startNewGame();
 
