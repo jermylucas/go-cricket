@@ -1,12 +1,18 @@
 # GoCricket
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
+This project was created using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
+
+## What is it?
+
+Go Cricket (aka "Go Fish") is a simple card game where the objective is to collect books of cards. The game is played with a standard deck of 52 cards, and the goal is to collect as many books as possible before the deck runs out.
 
 ## Why?
 
-I made this for an Angular assessment to demo some ng 20 knowlege as well as to have a little bit of fun putting together an app that's less serious than what I usually do at work
+I made this for an Angular assessment to demo some Angular 20 knowlege as well as to have a little bit of fun putting together an app that's less serious than what I usually do at work.
 
-## Anything new?
+## Anything I could do in the future?
+
+There's a lot that could be done to enhance this, and I recognize that. It's certainly not a complete game.
 
 I think it'd be fun to add the ability to use sockets and make this a multiplayer game. Something where you could send a friend a unique url and they could play against you. Of course this would need to be hosted. So for now it's just a single player game.
 
