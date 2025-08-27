@@ -1,0 +1,235 @@
+.score-board {
+  background: var(--dark-gray);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 8px 32px var(--overlay-medium);
+  color: var(--white);
+
+  .score-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    color: var(--orange);
+    text-shadow: 2px 2px 4px var(--overlay-dark);
+  }
+}
+
+.players-scores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+
+  .player-score {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+
+    &.current-player {
+      border-color: var(--light-purple);
+      background: var(--light-purple);
+    }
+
+    &.human-player {
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .player-avatar {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .avatar-icon {
+        font-size: 32px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .current-indicator {
+        position: absolute;
+        top: -11px;
+        right: -10px;
+        color: #f39c12;
+        font-size: 16px;
+      }
+    }
+
+    .player-details {
+      flex: 1;
+
+      .player-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0 0 8px 0;
+        color: #ecf0f1;
+      }
+
+      .player-stats {
+        display: flex;
+        gap: 15px;
+
+        .stat-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .stat-label {
+            font-size: 12px;
+            color: #bdc3c7;
+            margin-bottom: 2px;
+          }
+
+          .stat-value {
+            font-size: 16px;
+            font-weight: bold;
+
+            &.books-count {
+              color: #e74c3c;
+            }
+
+            &.cards-count {
+              color: #3498db;
+            }
+          }
+        }
+      }
+    }
+
+    .books-preview {
+      .books-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+
+        .book-badge {
+          background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+          color: white;
+          padding: 4px 8px;
+          border-radius: 12px;
+          font-size: 12px;
+          font-weight: bold;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          cursor: help;
+        }
+      }
+    }
+  }
+}
+
+.game-stats {
+  background: var(--glass-bg);
+  border-radius: 10px;
+  padding: 15px;
+
+  .stat-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+
+    .stat-box {
+      text-align: center;
+      flex: 1;
+
+      .stat-number {
+        display: block;
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--orange);
+        margin-bottom: 5px;
+      }
+
+      .stat-description {
+        font-size: 12px;
+        color: var(--pale-gray);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes timerProgress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .score-board {
+    padding: 15px;
+    margin: 5px;
+
+    .score-title {
+      font-size: 24px;
+    }
+  }
+
+  .players-scores {
+    grid-template-columns: 1fr;
+    gap: 10px;
+
+    .player-score {
+      padding: 12px;
+      gap: 10px;
+
+      .player-avatar .avatar-icon {
+        font-size: 24px;
+        width: 40px;
+        height: 40px;
+      }
+
+      .player-details .player-name {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .game-stats .stat-row {
+    flex-direction: column;
+    gap: 10px;
+
+    .stat-box .stat-number {
+      font-size: 20px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .players-scores .player-score {
+    flex-direction: column;
+    text-align: center;
+
+    .books-preview .books-list {
+      justify-content: center;
+    }
+  }
+}

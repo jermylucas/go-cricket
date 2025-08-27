@@ -1,59 +1,27 @@
-# GoFish
+# GoCricket
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
 
-## Development server
+## Why?
 
-To start a local development server, run:
+I made this for an Angular assessment to demo some ng 20 knowlege as well as to have a little bit of fun putting together an app that's less serious than what I usually do at work
 
-```bash
-ng serve
-```
+## Anything new?
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+I think it'd be fun to add the ability to use sockets and make this a multiplayer game. Something where you could send a friend a unique url and they could play against you. Of course this would need to be hosted. So for now it's just a single player game.
 
-## Code scaffolding
+## CPU Difficulty
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The CPU players have different difficulty levels based on their name:
 
-```bash
-ng generate component component-name
-```
+- Alice: Hard
+- Bob: Medium
+- Charlie: Easy
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The difficulty level determines the percentage of optimal plays the CPU will make:
 
-```bash
-ng generate --help
-```
+- Easy: 30% optimal plays
+- Medium: 60% optimal plays
+- Hard: 90% optimal plays
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This "AI" is still a work in progress, I thought it'd be a fun idea to iterate in the future, but for now it's not as intelligent as it should be in the decisions (in any mode)

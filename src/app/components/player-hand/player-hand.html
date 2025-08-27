@@ -1,0 +1,105 @@
+<div class="player-hand-container">
+  <!-- Current Player's Hand -->
+  @if (player) {
+  <div class="current-player-section">
+    <h3 class="player-name">{{ player.name }}'s Hand</h3>
+    <div class="hand-cards">
+      @for (card of player.hand; track $index; ) {
+      <app-card
+        [card]="card"
+        [selectable]="canPlay && player.isHuman"
+        [selected]="selectedRank === card.rank"
+        (cardClick)="onCardSelect(card)"
+      >
+      </app-card>
+      }
+    </div>
+
+    <!-- Card Request Interface -->
+    @if(canPlay && player.isHuman && selectedRank) {
+    <div class="request-interface">
+      <div class="request-form">
+        <h4>Ask for {{ selectedRank }}s from:</h4>
+        <div class="target-players">
+          @for (otherPlayer of otherPlayers; track $index; ) {
+          <button
+            class="player-button"
+            [class.has-cards]="otherPlayer.hand.length > 0"
+            [disabled]="otherPlayer.hand.length === 0"
+            (click)="makeRequest(otherPlayer.id)"
+          >
+            {{ otherPlayer.name }}
+            <span class="card-count">({{ otherPlayer.hand.length }} cards)</span>
+          </button>
+          }
+        </div>
+        <button class="cancel-button" (click)="clearSelection()">Cancel</button>
+      </div>
+    </div>
+    }
+
+    <!-- Player's Books -->
+    @if (player.books.length > 0) {
+    <div class="books-section">
+      <h4>Books ({{ player ? player.books.length : null }}):</h4>
+      <div class="books-display">
+        @for (book of player.books; track $index; ) {
+        <div class="book">
+          <span class="book-rank">{{ book.rank }}s</span>
+          <div class="book-cards">
+            @for (card of book.cards; track $index; ) {
+            <app-card [card]="card"> </app-card>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+  }
+
+  <!-- Other Players Display -->
+  <div class="other-players-section">
+    <h3>Other Players</h3>
+    <div class="other-players-grid">
+      @for (otherPlayer of otherPlayers; track $index; ) {
+      <div class="other-player" [class.current-turn]="otherPlayer.isCurrentPlayer">
+        <div class="player-info">
+          <h4>{{ otherPlayer.name }}</h4>
+          <div class="player-stats">
+            <span class="hand-count">{{ otherPlayer.hand.length }} cards</span>
+            <span class="books-count">{{ otherPlayer.books.length }} books</span>
+          </div>
+        </div>
+
+        <!-- CPU / other players hand face down -->
+        <div class="other-hand">
+          @for (card of otherPlayer.hand; track $index; ) {
+          <app-card
+            [card]="card"
+            [style.transform]="
+              'translateX(' +
+              $index * 15 +
+              'px) rotate(' +
+              ($index * 2 - otherPlayer.hand.length) +
+              'deg)'
+            "
+          >
+          </app-card>
+          }
+        </div>
+
+        <!-- Other player's books -->
+        @if (otherPlayer.books.length > 0) {
+        <div class="other-books">
+          @for (book of otherPlayer.books; track $index; ) {
+          <div class="mini-book">{{ book.rank }}s</div>
+          }
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+</div>

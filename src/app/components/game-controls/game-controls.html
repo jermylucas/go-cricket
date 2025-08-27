@@ -1,0 +1,94 @@
+<div class="game-controls">
+  <div class="game-phase-display">
+    <div class="phase-indicator" [ngClass]="getPhaseClass()">
+      <span class="phase-icon">{{ getPhaseIcon() }}</span>
+      <span class="phase-text">{{ getPhaseText() }}</span>
+    </div>
+  </div>
+
+  <!-- Winner Display -->
+  @if (winner && gamePhase === 'finished') {
+  <div class="winner-display">
+    <div class="winner-announcement">
+      <div class="winner-icon">🏆</div>
+      <h2 class="winner-text">{{ winner.name }} Wins!</h2>
+      <div class="winner-stats">
+        <span class="books-won">{{ winner ? winner.books.length : null }} Books</span>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Control Buttons -->
+  <div class="control-buttons">
+    <button
+      class="control-btn reset-btn"
+      (click)="onResetGame()"
+      [disabled]="gamePhase === 'setup'"
+    >
+      <span class="btn-text">Reset</span>
+    </button>
+
+    <button class="control-btn rules-btn" (click)="toggleRules()">
+      <span class="btn-text">Rules</span>
+    </button>
+  </div>
+
+  <!-- Rules Modal -->
+  @if(showRules) {
+  <div class="rules-modal" (click)="toggleRules()">
+    <div class="rules-content" (click)="$event.stopPropagation()">
+      <div class="rules-header">
+        <h3>Go 🦗 Cricket Rules</h3>
+        <button class="close-btn" (click)="toggleRules()">×</button>
+      </div>
+      <div class="rules-body">
+        <div class="rule-section">
+          <h4>Objective</h4>
+          <p>Collect the most "books" (sets of 4 cards of the same rank) to win</p>
+        </div>
+
+        <div class="rule-section">
+          <h4>How to Play</h4>
+          <ol>
+            <li>Each player starts with 7 cards</li>
+            <li>
+              On your turn, click on a card, and ask another player for cards of a specific card
+              rank (number)
+            </li>
+            <li>You can only ask for cards you have in your hand</li>
+            <li>If they have cards of that rank, they give them ALL to you</li>
+            <li>If they don't have any, they say "Go Cricket!" and you draw a card</li>
+            <li>When you collect 4 cards of the same rank, you form a "book"</li>
+            <li>The game ends when everyone has no cards left</li>
+          </ol>
+        </div>
+
+        <div class="rule-section">
+          <h4>Winning</h4>
+          <p>The player with the most books at the end wins!</p>
+        </div>
+
+        <div class="rule-section">
+          <h4>Tips</h4>
+          <ul>
+            <li>Remember what other players ask for</li>
+            <li>Pay attention to what cards they receive</li>
+            <li>Try to form books quickly</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+
+  <!-- Game Statistics -->
+  @if(gamePhase === 'playing') {
+  <div class="game-info">
+    <div class="info-item">
+      <span class="info-label">Game Time:</span>
+      <span class="info-value">{{ getGameDuration() }}</span>
+    </div>
+  </div>
+  }
+</div>

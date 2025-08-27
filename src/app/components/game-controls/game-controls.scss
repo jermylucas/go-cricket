@@ -1,0 +1,312 @@
+.game-controls {
+  background: var(--dark-blue);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 8px 32px var(--overlay-medium);
+  color: var(--white);
+  position: relative;
+}
+
+.game-phase-display {
+  text-align: center;
+  margin-bottom: 20px;
+
+  .phase-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 44px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+
+    &.phase-setup {
+      background: var(--orange);
+    }
+
+    &.phase-playing {
+      background: var(--green);
+    }
+
+    &.phase-finished {
+      background: var(--red);
+    }
+
+    .phase-icon {
+      font-size: 20px;
+    }
+
+    .phase-text {
+      text-shadow: 1px 1px 2px var(--overlay-dark);
+    }
+  }
+}
+
+.winner-display {
+  text-align: center;
+  margin: 20px 0;
+  padding: 25px;
+  background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(241, 196, 15, 0.4);
+  animation: winnerCelebration 2s ease-in-out infinite alternate;
+
+  .winner-announcement {
+    position: relative;
+
+    .winner-icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+      animation: trophyBounce 1s ease-in-out infinite alternate;
+    }
+
+    .winner-text {
+      font-size: 28px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 10px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .winner-stats {
+      font-size: 18px;
+      color: #34495e;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+
+  .control-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-icon {
+      font-size: 16px;
+    }
+
+    &.reset-btn {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    &.rules-btn {
+      background: var(--purple);
+      color: var(--white);
+    }
+  }
+}
+
+.rules-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+
+  .rules-content {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border-radius: 15px;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+    .rules-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+
+      h3 {
+        margin: 0;
+        font-size: 24px;
+        color: #ecf0f1;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        color: #ecf0f1;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+
+    .rules-body {
+      padding: 20px;
+
+      .rule-section {
+        margin-bottom: 20px;
+
+        h4 {
+          color: #f39c12;
+          font-size: 18px;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        p,
+        li {
+          color: #bdc3c7;
+          line-height: 1.6;
+          margin-bottom: 8px;
+        }
+
+        ol,
+        ul {
+          padding-left: 20px;
+        }
+
+        li {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}
+
+.game-info {
+  text-align: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+
+  .info-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    .info-label {
+      color: #bdc3c7;
+      font-size: 14px;
+    }
+
+    .info-value {
+      color: #f39c12;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  }
+}
+
+// Animations
+
+@keyframes winnerCelebration {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes trophyBounce {
+  0% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .game-controls {
+    padding: 15px;
+    margin: 5px;
+  }
+
+  .control-buttons {
+    flex-direction: column;
+    align-items: center;
+
+    .control-btn {
+      width: 200px;
+      justify-content: center;
+    }
+  }
+
+  .rules-modal .rules-content {
+    margin: 20px;
+    max-height: calc(100vh - 40px);
+  }
+
+  .winner-display .winner-announcement .winner-text {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .phase-indicator {
+    flex-direction: column;
+    gap: 5px;
+
+    .phase-text {
+      font-size: 14px;
+    }
+  }
+
+  .winner-display {
+    padding: 15px;
+
+    .winner-announcement .winner-text {
+      font-size: 20px;
+    }
+  }
+}

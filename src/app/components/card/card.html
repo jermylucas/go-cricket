@@ -1,0 +1,35 @@
+<div
+  class="card"
+  [class.face-up]="card.faceUp"
+  [class.selectable]="selectable"
+  [class.selected]="selected"
+  [class.dealing]="isDealing"
+  [class.moving]="isMoving"
+  (click)="onCardClick()"
+  [attr.data-suit]="card.faceUp ? card.suit : null"
+  [attr.data-rank]="card.faceUp ? card.rank : null"
+>
+  <div class="card-inner">
+    @if(card.faceUp) {
+    <div class="card-front">
+      <div class="card-corner top-left">
+        <div class="rank">{{ card.rank }}</div>
+        <div class="suit" [innerHTML]="getSuitSymbol()"></div>
+      </div>
+
+      <div class="card-center">
+        <div class="suit-large" [innerHTML]="getSuitSymbol()"></div>
+      </div>
+
+      <div class="card-corner bottom-right">
+        <div class="rank">{{ card.rank }}</div>
+        <div class="suit" [innerHTML]="getSuitSymbol()"></div>
+      </div>
+    </div>
+    } @if(!card.faceUp) {
+    <div class="card-back">
+      <div class="card-back-pattern"></div>
+    </div>
+    }
+  </div>
+</div>

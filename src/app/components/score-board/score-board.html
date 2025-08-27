@@ -1,0 +1,71 @@
+<div class="score-board">
+  <h2 class="score-title">Game Score</h2>
+
+  <div class="players-scores">
+    @for (player of players; track $index; ) {
+    <div
+      class="player-score"
+      [class.current-player]="player.isCurrentPlayer"
+      [class.human-player]="player.isHuman"
+    >
+      <div class="player-avatar">
+        <div class="avatar-icon">
+          {{ player.isHuman ? '👤' : '💻' }}
+        </div>
+        @if(player.isCurrentPlayer) {
+        <div class="current-indicator">▶</div>
+        }
+      </div>
+
+      <div class="player-details">
+        <h3 class="player-name">{{ player.name }}</h3>
+        <div class="player-stats">
+          <div class="stat-item">
+            <span class="stat-label">Books:</span>
+            <span class="stat-value books-count">{{ player.books.length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Cards:</span>
+            <span class="stat-value cards-count">{{ player.hand.length }}</span>
+          </div>
+        </div>
+      </div>
+
+      @if(player.books.length > 0) {
+      <div class="books-preview">
+        <div class="books-list">
+          @for (book of player.books; track $index; ) {
+          <span class="book-badge" [title]="book.rank + 's'">
+            {{ book.rank }}
+          </span>
+          }
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+
+  @if(players.length > 0) {
+  <div class="game-stats">
+    <div class="stat-row">
+      <div class="stat-box">
+        <span class="stat-number">{{ getTotalBooks() }}</span>
+        <span class="stat-description">Total Books</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">{{ getTotalCards() }}</span>
+        <span class="stat-description">Cards in Play</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">{{ getCardsLeft() }}</span>
+        <span class="stat-description">Deck Cards Left</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">{{ getLeader()?.name || 'Tied' }}</span>
+        <span class="stat-description">Current Leader</span>
+      </div>
+    </div>
+  </div>
+  }
+</div>

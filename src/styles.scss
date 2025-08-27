@@ -1,1 +1,137 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@400;600;700&family=Creepster&display=swap');
+
+:root {
+  --background-color: #292f36;
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --text-color: #ffffff;
+
+  // Additional flat colors for consistent theme:
+  --robin-egg-blue: #4ecdc4;
+  --white: #ffffff;
+  --light-red: #ff6b6b;
+  --dark-blue: #1a1a2e;
+  --medium-blue: #16213e;
+  --light-blue: #3282b8;
+  --pale-blue: #bbe1fa;
+  --dark-gray: #2c3e50;
+  --medium-gray: #34495e;
+  --light-gray: #6c757d;
+  --pale-gray: #e9ecef;
+  --orange: #f39c12;
+  --dark-orange: #e67e22;
+  --green: #27ae60;
+  --light-green: #2ecc71;
+  --red: #e74c3c;
+  --dark-red: #c0392b;
+  --purple: #8e44ad;
+  --light-purple: #9b59b6;
+  --yellow: #ffd700;
+  --card-white: #f8f9fa;
+  --scrollbar-track: #4a4a4a;
+  --scrollbar-thumb: #7a7a7a;
+  --scrollbar-thumb-hover: #9a9a9a;
+  --overlay-dark: #1a1a1a;
+  --overlay-medium: #333333;
+  --glass-bg: #ffffff1a;
+  --glass-border: #ffffff33;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--background-color);
+  color: #333;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+select:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Utility classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
