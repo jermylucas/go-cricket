@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@400;600;700&display=swap');
-
 .game-board {
   min-height: 100vh;
   background: var(--background-color);
-  font-family: 'Nunito', sans-serif;
+  font-family: sans-serif;
   position: relative;
   overflow-x: hidden;
 
@@ -28,7 +26,7 @@
   border-bottom: 2px solid var(--glass-border);
 
   .game-title {
-    font-family: 'Nunito', 'arial', 'roboto', cursive;
+    font-family: 'arial', 'roboto', cursive;
     font-size: 48px;
     color: var(--white);
     margin: 0;

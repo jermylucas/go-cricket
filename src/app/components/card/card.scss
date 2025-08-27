@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&display=swap');
-
 .card-container {
   perspective: 1000px;
   display: inline-block;
@@ -71,7 +69,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 4px;
-  font-family: 'sans-serif', 'helvetica', 'roboto', cursive;
+  font-family: 'Nosifer', 'sans-serif', 'helvetica', 'roboto', cursive;
 
   .card-corner {
     color: var(--overlay-dark);
