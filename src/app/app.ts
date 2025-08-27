@@ -30,6 +30,7 @@ export class App {
   gameState$!: Observable<GameState>;
   currentPlayer$!: Observable<Player | null>;
   winner$!: Observable<Player | null>;
+  winners$!: Observable<Player[]>;
   messages$!: Observable<GameMessage[]>;
   players$!: Observable<Player[]>;
   otherPlayers$!: Observable<Player[]>;
@@ -44,6 +45,7 @@ export class App {
     this.messages$ = this.gameService.messages$;
 
     this.players$ = this.gameState$.pipe(map((state) => state.players));
+    this.winners$ = this.gameState$.pipe(map((state) => state.winners));
 
     this.otherPlayers$ = combineLatest([this.gameState$, this.currentPlayer$]).pipe(
       map(([state, currentPlayer]) =>
@@ -64,7 +66,8 @@ export class App {
   }
 
   ngOnInit() {
-    this.playerName = prompt('What is your name?', 'User') || 'User';
+    this.playerName =
+      prompt('What is your name?', 'Person Hiring Jeremy') || 'Person Hiring Jeremy';
 
     this.startNewGame();
 

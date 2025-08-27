@@ -25,7 +25,7 @@ export class ScoreBoard {
   }
 
   getCardsLeft(): number {
-    return 52 - this.getTotalCards();
+    return 52 - (this.getTotalCards() + this.getTotalBooks() * 4);
   }
 
   getLeader(): Player | null {

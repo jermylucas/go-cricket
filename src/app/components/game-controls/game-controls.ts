@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 export class GameControls {
   @Input() gamePhase: GamePhase = GamePhase.SETUP;
   @Input() winner: Player | null = null;
+  @Input() winners: Player[] = [];
   @Input() gameStartTime: number = Date.now();
 
   @Output() resetGame = new EventEmitter<void>();

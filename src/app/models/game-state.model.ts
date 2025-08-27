@@ -13,6 +13,7 @@ export interface GameState {
   deck: Card[];
   gamePhase: GamePhase;
   winner: Player | null;
+  winners: Player[]; // For handling ties
   lastRequest: CardRequest | null;
   gameStartTime: number;
   turnCount: number;

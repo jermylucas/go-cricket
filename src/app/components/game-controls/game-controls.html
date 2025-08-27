@@ -7,14 +7,29 @@
   </div>
 
   <!-- Winner Display -->
-  @if (winner && gamePhase === 'finished') {
+  @if (gamePhase === 'finished' && (winner || (winners && winners.length > 0))) {
   <div class="winner-display">
     <div class="winner-announcement">
+      @if (winners && winners.length > 1) {
+      <!-- Tie scenario -->
+      <div class="winner-icon">🤝</div>
+      <h2 class="winner-text">It's a Tie!</h2>
+      <div class="tie-players">
+        @for (tiedPlayer of winners; track $index) {
+        <div class="tied-player">{{ tiedPlayer.name }}</div>
+        }
+      </div>
+      <div class="winner-stats">
+        <span class="books-won">{{ winners[0] ? winners[0].books.length : 0 }} Books Each</span>
+      </div>
+      } @else if (winner) {
+      <!-- Single winner scenario -->
       <div class="winner-icon">🏆</div>
       <h2 class="winner-text">{{ winner.name }} Wins!</h2>
       <div class="winner-stats">
-        <span class="books-won">{{ winner ? winner.books.length : null }} Books</span>
+        <span class="books-won">{{ winner.books.length }} Books</span>
       </div>
+      }
     </div>
   </div>
   }

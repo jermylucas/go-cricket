@@ -20,6 +20,7 @@ export class GameService {
     deck: [],
     gamePhase: GamePhase.SETUP,
     winner: null,
+    winners: [],
     lastRequest: null,
     gameStartTime: Date.now(),
     turnCount: 0,
@@ -393,7 +394,7 @@ export class GameService {
       return;
     }
 
-    this.addMessage('info', `${player.name} asks ${targetPlayer.name} for ${aiDecision.rank}s`);
+    this.addMessage('info', `${player.name} asks ${targetPlayer.name} for ${aiDecision.rank}'s`);
 
     // Record the CPU's action
     // Might use this to make the CPU smarter and learn from its mistakes
@@ -422,31 +423,39 @@ export class GameService {
       const playersWithMaxBooks = currentState.players.filter((p) => p.books.length === maxBooks);
 
       if (playersWithMaxBooks.length > 1) {
-        // Find these players
+        // It's a tie! Set all tied players as winners
         const tiebreakerPlayers = currentState.players.filter((p) => p.books.length === maxBooks);
+
+        this.gameStateSubject.next({
+          ...currentState,
+          gamePhase: GamePhase.FINISHED,
+          winner: null, // No single winner in a tie
+          winners: tiebreakerPlayers,
+        });
 
         this.addMessage(
           'info',
-          `Tiebreaker! ${tiebreakerPlayers
+          `It's a tie! ${tiebreakerPlayers
             .map((p) => p.name)
-            .join(', ')} have the same number of books.`
+            .join(' and ')} tied with ${maxBooks} books each!`
+        );
+      } else {
+        const winner = currentState.players.reduce((prev, current) =>
+          prev.books.length > current.books.length ? prev : current
+        );
+
+        this.gameStateSubject.next({
+          ...currentState,
+          gamePhase: GamePhase.FINISHED,
+          winner,
+          winners: [winner], // Single winner goes in winners array too
+        });
+
+        this.addMessage(
+          'success',
+          `Game Over! ${winner.name} wins with ${winner.books.length} books!`
         );
       }
-
-      const winner = currentState.players.reduce((prev, current) =>
-        prev.books.length > current.books.length ? prev : current
-      );
-
-      this.gameStateSubject.next({
-        ...currentState,
-        gamePhase: GamePhase.FINISHED,
-        winner,
-      });
-
-      this.addMessage(
-        'success',
-        `Game Over! ${winner.name} wins with ${winner.books.length} books!`
-      );
     }
   }
 
@@ -476,6 +485,7 @@ export class GameService {
       deck: [],
       gamePhase: GamePhase.SETUP,
       winner: null,
+      winners: [],
       lastRequest: null,
       gameStartTime: Date.now(),
       turnCount: 0,

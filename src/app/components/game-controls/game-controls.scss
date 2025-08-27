@@ -48,7 +48,7 @@
   text-align: center;
   margin: 20px 0;
   padding: 25px;
-  background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+  background: var(--yellow);
   border-radius: 15px;
   box-shadow: 0 8px 24px rgba(241, 196, 15, 0.4);
   animation: winnerCelebration 2s ease-in-out infinite alternate;
@@ -67,7 +67,6 @@
       font-weight: bold;
       color: #2c3e50;
       margin: 10px 0;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .winner-stats {
@@ -75,6 +74,24 @@
       color: #34495e;
       font-weight: bold;
       margin-bottom: 15px;
+    }
+
+    .tie-players {
+      margin: 15px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+
+      .tied-player {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: bold;
+        color: #2c3e50;
+        font-size: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
     }
   }
 }
