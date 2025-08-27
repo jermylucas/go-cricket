@@ -29,7 +29,7 @@ export class CPUService {
     });
   }
 
-  updateAIMemory(playerId: string, action: PlayerAction) {
+  updateCPUMemory(playerId: string, action: PlayerAction) {
     const memory = this.cpuMemories.get(playerId);
     if (!memory) return;
 

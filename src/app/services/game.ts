@@ -363,6 +363,7 @@ export class GameService {
     });
 
     // If it's a computer player's turn, make them play
+    // Timeout helps simulate real playing
     const nextPlayer = updatedPlayers[nextPlayerIndex];
     if (!nextPlayer.isHuman && nextPlayer.hand.length > 0) {
       setTimeout(() => this.makeComputerMove(nextPlayer), 1500);
@@ -380,36 +381,36 @@ export class GameService {
       return;
     }
 
-    // Use AI service to make intelligent decisions
-    const aiDecision = this.cpuService.makeAIDecision(player, otherPlayers);
+    const cpuDecision = this.cpuService.makeAIDecision(player, otherPlayers);
 
-    if (!aiDecision) {
+    if (!cpuDecision) {
       this.nextTurn();
       return;
     }
 
-    const targetPlayer = otherPlayers.find((p) => p.id === aiDecision.targetPlayerId);
+    const targetPlayer = otherPlayers.find((p) => p.id === cpuDecision.targetPlayerId);
     if (!targetPlayer) {
       this.nextTurn();
       return;
     }
 
-    this.addMessage('info', `${player.name} asks ${targetPlayer.name} for ${aiDecision.rank}'s`);
+    this.addMessage('info', `${player.name} asks ${targetPlayer.name} for ${cpuDecision.rank}'s`);
 
     // Record the CPU's action
     // Might use this to make the CPU smarter and learn from its mistakes
     const action: PlayerAction = {
       playerId: player.id,
       type: 'request',
-      targetPlayerId: aiDecision.targetPlayerId,
-      rank: aiDecision.rank,
+      targetPlayerId: cpuDecision.targetPlayerId,
+      rank: cpuDecision.rank,
       timestamp: Date.now(),
     };
 
-    this.cpuService.updateAIMemory(player.id, action);
+    this.cpuService.updateCPUMemory(player.id, action);
 
     setTimeout(() => {
-      this.requestCards(aiDecision.targetPlayerId, aiDecision.rank);
+      // Small delay to similuate real playing
+      this.requestCards(cpuDecision.targetPlayerId, cpuDecision.rank);
     }, 1000);
   }
 
@@ -418,18 +419,18 @@ export class GameService {
     const playersWithCards = currentState.players.filter((p) => p.hand.length > 0);
 
     if (playersWithCards.length <= 1) {
-      // Check to see if there is a tiebreaker
+      // Tiebreaker logic
       const maxBooks = Math.max(...currentState.players.map((p) => p.books.length));
       const playersWithMaxBooks = currentState.players.filter((p) => p.books.length === maxBooks);
 
       if (playersWithMaxBooks.length > 1) {
-        // It's a tie! Set all tied players as winners
+        // Set all tied players as winners so it's not just picking from the filter/reduce above
         const tiebreakerPlayers = currentState.players.filter((p) => p.books.length === maxBooks);
 
         this.gameStateSubject.next({
           ...currentState,
           gamePhase: GamePhase.FINISHED,
-          winner: null, // No single winner in a tie
+          winner: null, // No single winner in a tie, this way the subject doesn't emit
           winners: tiebreakerPlayers,
         });
 

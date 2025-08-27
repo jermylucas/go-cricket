@@ -36,15 +36,6 @@ export class PlayerHand {
   selectedRank: Rank | null = null;
   private destroySubject = new Subject<void>();
 
-  ngOnInit() {
-    // Component initialization logic if needed
-  }
-
-  ngOnDestroy() {
-    this.destroySubject.next();
-    this.destroySubject.complete();
-  }
-
   onCardSelect(card: Card) {
     if (!this.canPlay || !this.player?.isHuman) return;
 
@@ -68,5 +59,10 @@ export class PlayerHand {
 
   trackByCardId(_index: number, card: Card): string {
     return card.id;
+  }
+
+  ngOnDestroy() {
+    this.destroySubject.next();
+    this.destroySubject.complete();
   }
 }
