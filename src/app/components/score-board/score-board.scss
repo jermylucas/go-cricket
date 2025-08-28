@@ -2,7 +2,9 @@
   background: var(--dark-gray);
   border-radius: 15px;
   padding: 20px;
+  padding-top: 10px;
   margin: 10px;
+  margin-bottom: 0px;
   box-shadow: 0 8px 32px var(--overlay-medium);
   color: var(--white);
 
@@ -26,7 +28,7 @@
   .player-score {
     background: var(--glass-bg);
     border-radius: 12px;
-    padding: 15px;
+    padding: 8px 15px;
     display: flex;
     align-items: center;
     gap: 15px;

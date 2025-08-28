@@ -65,4 +65,19 @@ export class PlayerHand {
     this.destroySubject.next();
     this.destroySubject.complete();
   }
+
+  // Group cards by rank fo rthe user to see on their hand
+  get groupedCards(): { rank: Rank; cards: Card[] }[] {
+    if (!this.player?.hand) return [];
+
+    const groups = new Map<Rank, Card[]>();
+    this.player.hand.forEach((card) => {
+      if (!groups.has(card.rank)) {
+        groups.set(card.rank, []);
+      }
+      groups.get(card.rank)!.push(card);
+    });
+
+    return Array.from(groups.entries()).map(([rank, cards]) => ({ rank, cards }));
+  }
 }

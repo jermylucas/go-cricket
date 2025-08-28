@@ -4,7 +4,7 @@
   <div class="current-player-section">
     <h3 class="player-name">{{ player.name }}'s Hand</h3>
     <div class="hand-cards">
-      @for (card of player.hand; track $index; ) {
+      @for (group of groupedCards; track group.rank) { @for (card of group.cards; track card.id) {
       <app-card
         [card]="card"
         [selectable]="canPlay && player.isHuman"
@@ -12,9 +12,8 @@
         (cardClick)="onCardSelect(card)"
       >
       </app-card>
-      }
+      } }
     </div>
-
     <!-- Card Request Interface -->
     @if(canPlay && player.isHuman && selectedRank) {
     <div class="request-interface">
@@ -32,8 +31,8 @@
             <span class="card-count">({{ otherPlayer.hand.length }} cards)</span>
           </button>
           }
+          <button class="cancel-button" (click)="clearSelection()">Cancel</button>
         </div>
-        <button class="cancel-button" (click)="clearSelection()">Cancel</button>
       </div>
     </div>
     }
