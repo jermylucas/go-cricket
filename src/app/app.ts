@@ -20,6 +20,7 @@ import { GameControls } from './components/game-controls/game-controls';
 })
 export class App {
   playerName: string = 'User';
+  gameStartTime = Date.now();
 
   // Destroy subject for easy ondestroy method
   private destroySubject = new Subject<void>();
@@ -81,6 +82,7 @@ export class App {
   }
 
   startNewGame() {
+    this.gameStartTime = Date.now();
     const playerNames = [this.playerName, 'Alice', 'Bob', 'Charlie'];
     this.gameService.initializeGame(playerNames);
   }

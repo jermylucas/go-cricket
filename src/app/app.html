@@ -43,7 +43,7 @@
     [gamePhase]="(gamePhase$ | async) || GamePhase.SETUP"
     [winner]="(winner$ | async) || null"
     [winners]="(winners$ | async) || []"
-    [gameStartTime]="(gameState$ | async)?.gameStartTime || currentTime"
+    [gameStartTime]="gameStartTime || currentTime"
     (resetGame)="resetGame()"
   >
   </app-game-controls>

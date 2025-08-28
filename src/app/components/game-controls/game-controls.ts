@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { GamePhase } from '../../models/game-state.model';
 import { Player } from '../../models/player.model';
 import { CommonModule } from '@angular/common';
@@ -9,15 +9,29 @@ import { CommonModule } from '@angular/common';
   templateUrl: './game-controls.html',
   styleUrl: './game-controls.scss',
 })
-export class GameControls {
+export class GameControls implements OnInit, OnDestroy {
   @Input() gamePhase: GamePhase = GamePhase.SETUP;
   @Input() winner: Player | null = null;
   @Input() winners: Player[] = [];
-  @Input() gameStartTime: number = Date.now();
+  @Input() gameStartTime: number = 0;
 
   @Output() resetGame = new EventEmitter<void>();
 
   showRules = false;
+  private timerInterval: any = null;
+  private currentDuration = '0:00';
+
+  ngOnInit() {
+    if (localStorage.getItem('hasVisited') === null) {
+      this.showRules = true;
+      localStorage.setItem('hasVisited', 'true');
+    }
+    this.startTimer();
+  }
+
+  ngOnDestroy() {
+    this.stopTimer();
+  }
 
   onResetGame() {
     this.resetGame.emit();
@@ -25,6 +39,30 @@ export class GameControls {
 
   toggleRules() {
     this.showRules = !this.showRules;
+  }
+
+  private startTimer() {
+    this.stopTimer(); // Clear any existing timer
+    this.timerInterval = setInterval(() => {
+      this.updateDuration();
+    }, 1000);
+    this.updateDuration(); // Update immediately
+  }
+
+  private stopTimer() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+  }
+
+  private updateDuration() {
+    if (this.gameStartTime > 0) {
+      const duration = Date.now() - this.gameStartTime;
+      const seconds = Math.floor((duration % 60000) / 1000);
+      const minutes = Math.floor(duration / 60000);
+      this.currentDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
   }
 
   getPhaseClass(): string {
@@ -66,12 +104,7 @@ export class GameControls {
     }
   }
 
-  getGameDuration(): string {
-    // Change detection sometimes catches this and makes it stop
-    // So you might notice the timer pause until you make a move
-    const duration = Date.now() - this.gameStartTime;
-    const seconds = Math.floor((duration % 60000) / 1000);
-    const minutes = Math.floor(duration / 60000);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  getGameDuration() {
+    return this.currentDuration;
   }
 }
