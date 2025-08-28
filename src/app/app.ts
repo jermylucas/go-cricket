@@ -81,7 +81,7 @@ export class App {
   }
 
   startNewGame() {
-    const playerNames = [this.playerName, 'CPU Alice', 'CPU Bob', 'CPU Charlie'];
+    const playerNames = [this.playerName, 'Alice', 'Bob', 'Charlie'];
     this.gameService.initializeGame(playerNames);
   }
 
